@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="'en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width , initial-scale=1"/>
+        <title>Generate a CSS Color Gradient</title>
+        
+        <style>
+            body{
+                width:100%;
+                height:100vh;
+                background-image: linear-gradient(to right top, #051937, #004d7a, #008793,#00bf72,#a8eb12);
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                margin:0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            section{
+                text-align: center;
+                background: rgba(255,255,255,0.8);
+                padding:20px;
+                border-radius: 10px;
+            }
+            button{
+                padding:10px 20px;
+                margin:20px;
+                font-size: 16px;
+                cursor:pointer;
+                border:none;
+                border-radius:5px;
+                background-color:#333;
+                color:white;
+            }
+            .copyCode{
+                background-color: #f0f0f0;
+                padding:10px;
+                border-radius: 5px;
+                font-family: monospace;
+                cursor:pointer
+            }
+           
+             
+        </style>
+        </head>
+        <body>
+            <section>
+                <div>
+                    <h1>Gradient Generator</h1>
+                <button id="mybtn">#051937</button>
+                <button id="mybtn2">#008793</button>
+                 </div>
+                 <h2>Copy your code here</h2>
+                 <div class="copyCode">
+                    background-image: linear-gradient(to right,rgb(92,145,229), rgb(152,63,198))
+                 </div>
+            </section>
+            <script>
+                let btn1=document.getElementById("mybtn");
+                let btn2=document.getElementById("mybtn2");
+                let copyCode=document.querySelector(".copyCode");
+                
+               
+                const hexValues=()=>{
+                    let myHexaVal="0123456789abcdef";
+                    let color="#";
+                    for(let i=0;i<6;i++){
+                        color+= myHexaVal[Math.floor(Math.random()*16)];
+                      } 
+                    return color;
+                 };
+                 const updateGradient=()=>{
+                    const color1=btn1.textContent;
+                    const color2=btn2.textContent;
+                    document.body.style.backgroundImage=`linear-gradient(to right,${color1},${color2})`;
+                    copyCode.textContent=`background-image:linear-gradient(to right,${color1},${color2})`;
+                 };
+
+                 btn1.addEventListener('click',()=>{
+                    const newColor=hexValues();
+                    btn1.textContent=newColor;
+                    updateGradient();
+                 })
+
+                 btn2.addEventListener('click',()=>{
+                    const newColor=hexValues();
+                    btn2.textContent=newColor;
+                    updateGradient();
+                 })
+                 copyCode.addEventListener('click',()=>{
+                    navigator.clipboard.writeText(copyCode.textContent)
+                    .then(()=>alert("gradient code copied!"))
+                    .catch(err=>console.error("failed to copy",err));
+                 });
+            </script>
+        </body>
+
+</html>
